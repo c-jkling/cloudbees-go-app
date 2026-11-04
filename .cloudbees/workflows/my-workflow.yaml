@@ -26,7 +26,7 @@ jobs:
         uses: https://github.com/cloudbees-io/sonarqube-bundled-sast-scan-code@v1
       - name: display-prop
         uses: docker://alpine:latest
-        run: 'echo "The component property value is: ${{ vars.MY\test }}"'
+        run: 'echo "The component property value is: ${{ vars.test }}"'
         kind: test
     needs:
       - test-approval
