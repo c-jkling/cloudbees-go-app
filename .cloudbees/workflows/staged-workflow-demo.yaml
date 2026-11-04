@@ -45,9 +45,9 @@ jobs:
         shell: sh
   show-stage:
     steps:
-      - run: echo "This is the dev stage
+      - run: echo "This is the dev stage"
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
-      - run: This is step 2 of the dev stage
+      - run: echo "This is step 2 of the dev stage"
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
