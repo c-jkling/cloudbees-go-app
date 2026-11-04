@@ -1,0 +1,53 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: staged-workflow-demo
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+metadata:
+  stages/v1alpha1:
+    - name: Dev
+      jobs:
+        - job1
+        - show-stage
+    - name: Staging
+      jobs:
+        - job
+    - name: Prod
+      jobs:
+        - job2
+jobs:
+  job1:
+    steps:
+      - run: echo "hello world"
+        uses: docker://golang:1.20.3-alpine3.17
+        name: Hello world
+        shell: sh
+  job:
+    needs:
+      - show-stage
+      - job1
+    steps:
+      - run: echo "This is the staging stage"
+        uses: docker://golang:1.20.3-alpine3.17
+        name: Say hello
+        shell: sh
+  job2:
+    needs: job
+    steps:
+      - run: echo "This is the prod stage"
+        uses: docker://golang:1.20.3-alpine3.17
+        name: Say hello
+        shell: sh
+  show-stage:
+    steps:
+      - run: echo "This is the dev stage
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+      - run: This is step 2 of the dev stage
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
