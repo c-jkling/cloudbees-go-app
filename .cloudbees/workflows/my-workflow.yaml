@@ -24,6 +24,10 @@ jobs:
           go test -v ./...
       - name: Scan with SonarQube bundled action
         uses: https://github.com/cloudbees-io/sonarqube-bundled-sast-scan-code@v1
+      - name: display-prop
+        uses: docker://alpine:latest
+        run: 'echo "The component property value is: ${{ vars.MY\test }}"'
+        kind: test
     needs:
       - test-approval
   test-approval:
