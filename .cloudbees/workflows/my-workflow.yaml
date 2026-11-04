@@ -24,3 +24,22 @@ jobs:
           go test -v ./...
       - name: Scan with SonarQube bundled action
         uses: https://github.com/cloudbees-io/sonarqube-bundled-sast-scan-code@v1
+    needs:
+      - test-approval
+  test-approval:
+    timeout-minutes: 4320
+    delegates: cloudbees-io/manual-approval/custom-job.yml@v1
+    with:
+      instructions: Please approve this action
+      disallowLaunchByUser: false
+      approvers: 1134290c-d263-11ee-acf9-42010a83ae98
+      notifyAllEligibleUsers: false
+      approvalInputs: |
+        favorite-color:
+          type: choice
+          options:
+            - Red
+            - Green
+            - Blue
+          required: true
+          description: Please select your favorite color
